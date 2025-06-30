@@ -9,9 +9,9 @@ def reaction_eq_deciduous(u0, V1, V2, k_V2, H1, H2, rho_H1, a_H1, h_V1H1, h_V2H1
 
     import numpy as np
 
-    safe_k_V2 = np.where(k_V2 < 1e-6, 1e-6, k_V2)
+    safe_k_V2 = np.where(k_V2 < 1e-6, 1e-16, k_V2)
 
-    reaction_V2 = u0 * (1 - V2 / safe_k_V2) - ((a_H2 * V2)/(1 + a_H2 * h_V2H2 * V2) * H2) - ((( 1 - rho_H1) * a_H1 * V2)/(1 + (rho_H1 * a_H1 * h_V1H1 * V1) + (( 1 - rho_H1) * a_H1 * h_V2H1 * V2))) * H1
+    reaction_V2 = u0 * V2 * (1 - V2 / safe_k_V2) - ((a_H2 * V2)/(1 + a_H2 * h_V2H2 * V2) * H2) - ((( 1 - rho_H1) * a_H1 * V2)/(1 + (rho_H1 * a_H1 * h_V1H1 * V1) + (( 1 - rho_H1) * a_H1 * h_V2H1 * V2))) * H1
     
     return reaction_V2, safe_k_V2
 

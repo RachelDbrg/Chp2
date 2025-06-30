@@ -13,10 +13,17 @@ def initial_sp_distribution(Nx, Ny):
 
 
     # Localisation of the V2 vegetation
-    V2_loc_x_min = 8
-    V2_loc_x_max = 9
+    V2_loc_x_min = 2
+    V2_loc_x_max = 3
     V2_loc_y_min = 8
     V2_loc_y_max = 9
+
+
+    # Localisation of the V1 vegetation, AROUND the V2 spot 
+    V1_loc_x_min = V2_loc_x_min - 1
+    V1_loc_x_max = V2_loc_x_max + 1
+    V1_loc_y_min = V2_loc_y_min - 1 
+    V1_loc_y_max = V2_loc_y_max + 1
 
 
     # Create the mask inside your initialize() function:
@@ -25,7 +32,8 @@ def initial_sp_distribution(Nx, Ny):
     
     # V2[Nx // 3:2*Nx // 3, Ny // 3:2*Ny // 3] = 1*10^5  # Center of the grid
     V2[V2_loc_x_min:V2_loc_x_max, V2_loc_y_min:V2_loc_y_max] = 1*10^5  # Center of the grid
-    V1[1:Nx, 1:Ny] = 0  # Center of the grid
+    # V1[1:Nx, 1:Ny] = 0  # Center of the grid
+    # V1[V1_loc_x_min:V1_loc_x_max, V1_loc_y_min:V1_loc_y_max] = 1*10^5 
 
     # Localisation of the H2 herbivore
     H2_loc_x_min = 2
@@ -40,7 +48,15 @@ def initial_sp_distribution(Nx, Ny):
     P[Nx//2, Nx//2] = 0
     
     k_V2[V2_loc_x_min:V2_loc_x_max, V2_loc_y_min:V2_loc_y_max] = 167010
-    k_V1 [1:Nx, 1:Ny] = 92870
+    # k_V1[V1_loc_x_min:V1_loc_x_max, V1_loc_y_min:V1_loc_y_max]= 92870
+
+
+    # Test and put every vegetation to 0
+    k_V1 = np.zeros((Nx, Ny))
+    # k_V2 = np.zeros((Nx, Ny))
+    V1 = np.zeros((Nx, Ny))
+    # V2 = np.zeros((Nx, Ny))
+
 
 
     return V1, V2, H1, H2, P, k_V1, k_V2, mask_V2
