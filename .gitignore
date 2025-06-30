@@ -3,3 +3,5 @@ frames/
 .gif
 .png                                                                                                                                                                                                         
 frames/*.png
+*.swp
+__pycache__/
