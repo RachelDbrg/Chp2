@@ -1,8 +1,12 @@
-def reaction_eq_lichen(v0, V1, V2, k_V, rho_H1, a_H1, h_V1H1, h_V2H1, H1):
+def reaction_eq_lichen(v0, V1, V2, k_V1, rho_H1, a_H1, h_V1H1, h_V2H1, H1):
 
-    reaction_V1 = v0 * V1 * (1 - V1 / k_V) - ((rho_H1 * a_H1 * V1)/(1 + (rho_H1 * a_H1 * h_V1H1 * V1) + (( 1 - rho_H1) * a_H1 * h_V2H1 * V2))) * H1
+    import numpy as np
 
-    return reaction_V1
+    safe_k_V1 = np.where(k_V1 < 1e-6, 1e-16, k_V1)
+
+    reaction_V1 = v0 * V1 * (1 - V1 / safe_k_V1) - ((rho_H1 * a_H1 * V1)/(1 + (rho_H1 * a_H1 * h_V1H1 * V1) + (( 1 - rho_H1) * a_H1 * h_V2H1 * V2))) * H1
+
+    return reaction_V1, safe_k_V1
 
 
 def reaction_eq_deciduous(u0, V1, V2, k_V2, H1, H2, rho_H1, a_H1, h_V1H1, h_V2H1,a_H2, h_V1H2, h_V2H2):
