@@ -36,7 +36,7 @@ def system_rhs(t, y, Nx, Ny, dx, dy, params, mask_V2):
 
     # Calculate full derivatives
     dV2dt = R_V2
-    dH2dt = R_H2 #+ Lm
+    dH2dt = R_H2 
     dPdt  = R_P
 
     return flatten_fields(dV2dt, dH2dt, dPdt)
