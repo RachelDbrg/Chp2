@@ -5,3 +5,4 @@ frames/
 frames/*.png
 *.swp
 __pycache__/
+outputs/*
