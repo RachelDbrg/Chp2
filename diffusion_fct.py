@@ -1,7 +1,6 @@
 def compute_norm_score_patch(alpha_HH, H , alpha_HV1 ,V1 , alpha_HV2 , V2 , alpha_PH, P):
 
     import numpy as np
-
    
     score_G = alpha_HH * H + alpha_HV1 * V1 + alpha_HV2 * V2 + alpha_PH * P
 
