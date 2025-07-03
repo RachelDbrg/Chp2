@@ -8,15 +8,15 @@ def initialize_veg_parms():
 
     # Vegetation
     # Decidudous
-    u_croiss = 30000
-    k_U_val = 167010
-    k_U_max = k_U_val
+    V2_croiss = 30000
+    k_V2_val = 167010
+    k_V2_max = k_V2_val
 
     # Lichen
-    v_croiss = 0.06
-    k_V_norm = 92870
+    V1_croiss = 0.06
+    k_V1_norm = 92870
     
-    return u_croiss, v_croiss, k_U_val, k_V_norm, k_U_max
+    return V2_croiss, V1_croiss, k_V2_val, k_V1_norm, k_V2_max
 
 
 
