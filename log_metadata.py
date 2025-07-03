@@ -1,10 +1,8 @@
 import os
 import json
-from datetime import datetime
 
-def save_metadata(species, params, grid, sim_settings, notes=""):
-    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M")
-    
+def save_metadata(species, params, grid, sim_settings, timestamp, notes=""):
+       
     metadata = {
         "timestamp": timestamp,
         "species": species,
@@ -15,7 +13,7 @@ def save_metadata(species, params, grid, sim_settings, notes=""):
     }
 
     # Create timestamped subfolder
-    config_dir = os.path.join("outputs", "configs", timestamp)
+    config_dir = os.path.join("outputs", timestamp, "configs")
     os.makedirs(config_dir, exist_ok=True)
 
     filename = f"run_{species}.json"
