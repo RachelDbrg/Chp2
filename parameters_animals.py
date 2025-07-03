@@ -4,21 +4,26 @@ def initialize_animal_parms(k_U_val, k_V_norm, k_U_max):
 
     import numpy as np
 
-    # Parameters
-    
-    # Animals
+      
     # Prey
+    ## Weights
     w_H2 = 400
     w_H1 = 100
     
+    ## Carrying capacities: A CHANGER
     k_H2 = 0.6
     k_H1 = 0.6 #A CHANGER
 
+    ## Handling times
     h_V2H1 = 8.81e-4
     h_V1H2 = 0
-    
-    a_H2, h_V2H2, e_V2 = 0.05, 0.000034, 20083
-    a_H1, h_V1H1, e_V1 = 0.05, 8.81e-4,  11.8e3
+    h_V2H2 = 0.000034
+    h_V1H1 = 8.81e-4
+
+    a_H1 = 0.05
+    a_H2 = 0.05
+    e_V2 = 20083
+    e_V1 = 11.8e3
     
     mu_H2 = 70 * w_H2**0.75 * 365 * 1.7 * 4.184
     mu_H1 = 70 * w_H1**0.75 * 365 * 1.7 * 4.184 
