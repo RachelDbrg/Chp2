@@ -1,22 +1,10 @@
-def compute_norm_score_patch(alpha_HH, H , alpha_HV1 ,V1 , alpha_HV2 , V2 , alpha_PH, P):
-
-    import numpy as np
-   
-    score_G = alpha_HH * H + alpha_HV1 * V1 + alpha_HV2 * V2 + alpha_PH * P
-
-    score_G_min = np.min(score_G)
-    score_G_max = np.max(score_G)
-    normalized_score_G = (score_G - score_G_min) / (score_G_max - score_G_min + 1e-9)
-
-    return score_G, normalized_score_G
-
-
 def diff_eq(H, V1, V2, P, dx, dy, sigma_H, eta_H, 
             alpha_HH, alpha_HV1, alpha_HV2, alpha_PH,
             barrier_mask=None):
 
     import numpy as np
     from scipy.ndimage import uniform_filter
+    from compute_score_maps import compute_norm_score_patch
 
     omega_H = 2 * sigma_H
 
