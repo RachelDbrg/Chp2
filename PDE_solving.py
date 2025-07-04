@@ -9,9 +9,16 @@ def system_rhs(t, y, Nx, Ny, dx, dy, params, mask_V2, mask_V1, barrier_mask, log
     from diffusion_fct import diff_eq
     from fct_flat_field import flatten_fields
     from fct_flat_field import unflatten_fields
+    from dynamics_carrying_capacities import dynamics_carrying_capacity
 
 
     V1, V2, H1, H2, P = unflatten_fields(y, Nx, Ny, 5)
+
+    k_H1, k_H2, safe_k_H1, safe_k_H2 = dynamics_carrying_capacity(V1, V2, params['gamma_H1H2'])
+
+    # print("k_H1_final shape:", np.shape(k_H1))
+    # print("k_H2_final shape:", np.shape(k_H2))
+
 
     # Compute reactions
     R_V1, safe_k_V1 = reaction_eq_lichen(params['V1_croiss'], V1, V2, params['k_V1_norm'], 
@@ -31,13 +38,13 @@ def system_rhs(t, y, Nx, Ny, dx, dy, params, mask_V2, mask_V1, barrier_mask, log
                                     params['mu_H1'], params['rho_H1'],
                                     params['h_V1H1'], params['h_V2H1'],
                                     params['e_V1'], params['e_V2'],
-                                    params['epsi_AJ'], params['k_H1'],
+                                    params['epsi_AJ'], safe_k_H1,
                                     params['chi_H1'], params['h_PH1'], params['a_PH1'],
                                     H1, H2, params['h_PH2'], params['a_PH2'])
 
     R_H2, r_H = reaction_eq_prey_mono(params['a_H2'], params['h_V2H2'], V2,
                                     params['chi_H2'], params['epsi_AJ'], params['e_V2'],
-                                    params['mu_H2'], params['k_H2'],
+                                    params['mu_H2'], safe_k_H2,
                                     params['a_PH2'], P, H2,
                                     params['h_PH1'], params['a_PH1'], H1, params['h_PH2'])
 
@@ -73,9 +80,20 @@ def system_rhs(t, y, Nx, Ny, dx, dy, params, mask_V2, mask_V1, barrier_mask, log
 
     # Log if requested
     if log_fn:
-        log_fn(t, score_G_H2.copy(), Dm_eff_H2.copy())
-        log_fn(t, score_G_H1.copy(), Dm_eff_H1.copy())
-        log_fn(t, score_G_P.copy(), Dm_eff_P.copy())
+        log_fn(
+            t,
+            score_G_H1=score_G_H1,
+            Dm_eff_H1=Dm_eff_H1,
+            score_G_H2=score_G_H2,
+            Dm_eff_H2=Dm_eff_H2,
+            score_G_P=score_G_P,
+            Dm_eff_P=Dm_eff_P,
+            k_H1=k_H1,
+            k_H2=k_H2,
+            safe_k_H1=safe_k_H1,
+            safe_k_H2=safe_k_H2
+    )
+
 
 
     # Apply the barrier mask directly to densities (to prevent "ghost" flow across the barrier)
@@ -99,9 +117,9 @@ def system_rhs(t, y, Nx, Ny, dx, dy, params, mask_V2, mask_V1, barrier_mask, log
     # dV1dt = R_V1
     dV1dt = R_V1
     dV2dt = R_V2
-    dH1dt = R_H1 + diffusion_term_H1
-    dH2dt = R_H2 + diffusion_term_H2
-    dPdt  = R_P + diffusion_term_P
+    dH1dt = diffusion_term_H1 + R_H1
+    dH2dt = diffusion_term_H2 + R_H2
+    dPdt  = diffusion_term_P + R_P
 
     dH2dt[barrier_mask] = 0  
     dV2dt[barrier_mask] = 0 
