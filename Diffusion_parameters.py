@@ -5,9 +5,9 @@ def initialize_diffusion_parms():
    sigma_H1 = 1
    sigma_P = 1
 
-   eta_H2 = 0
-   eta_H1 = 0
-   eta_P = 0
+   eta_H2 = 10
+   eta_H1 = 10
+   eta_P = 10
 
    alpha_H2H2 = 0
    alpha_H1H1 = 0
