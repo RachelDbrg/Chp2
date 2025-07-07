@@ -9,7 +9,8 @@ def initialize_veg_parms():
     # Vegetation
     # Decidudous
     V2_croiss = 30000
-    k_V2_val = 167010
+    # k_V2_val = 167010
+    k_V2_val = 167010/2
     k_V2_max = k_V2_val
 
     # Lichen
