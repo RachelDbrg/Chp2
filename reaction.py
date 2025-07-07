@@ -37,7 +37,7 @@ def reaction_eq_prey_mix(V1, V2, P, a_H1, mu_H1, rho_H1, h_V1H1, h_V2H1, e_V1, e
     # reaction_H = r_H - phi_H * H1**2 + predation_H
     reaction_H = r_H * H1 - phi_H * H1**2 + predation_H1
 
-    return reaction_H
+    return reaction_H, predation_H1
 
 
 def reaction_eq_prey_mono(a_H2, h_V2H2, V2, chi_H2, epsi_AJ, e_V2, mu_H2, k_H, a_PH2, P, H2, h_PH1, a_PH1, H1, h_PH2):
@@ -55,17 +55,19 @@ def reaction_eq_prey_mono(a_H2, h_V2H2, V2, chi_H2, epsi_AJ, e_V2, mu_H2, k_H, a
 
     reaction_H = r_H * H2 - phi_H * H2**2 + predation_H2
 
-    return reaction_H, r_H
+    return reaction_H, r_H, predation_H2
 
 
 def reaction_eq_predator(P, H1, H2, a_PH1, a_PH2, h_PH1, h_PH2, phi_P, h_P, chi_P, epsi_H1H2, mu_P) :
 
-
+    import numpy as np
     denom_predator = 1 + h_PH1 * a_PH1 * H1 + h_PH2 * a_PH2 * H2
 
     intake_predator = (chi_P * ((a_PH1 * H1 + epsi_H1H2 * a_PH2 * H2) / (denom_predator)) - mu_P)
 
-    reaction_P = P * (intake_predator - phi_P * P - h_P)
+    safe_r_P = np.where(intake_predator < 1e-6, 1e-16, intake_predator)
+
+    reaction_P = P * (safe_r_P - phi_P * P - h_P)
 
     
-    return reaction_P
+    return reaction_P, safe_r_P
