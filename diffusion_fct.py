@@ -1,10 +1,17 @@
 def diff_eq(H, V1, V2, P, dx, dy, sigma_H, eta_H, 
             alpha_HH, alpha_HV1, alpha_HV2, alpha_PH,
-            barrier_mask=None):
+            barrier_mask=None, t=None):
 
     import numpy as np
     from scipy.ndimage import uniform_filter
     from compute_score_maps import compute_norm_score_patch
+
+    # Evaluate time-dependent parameters if needed
+    if callable(sigma_H):
+        sigma_H = sigma_H(t)
+    if callable(eta_H):
+        eta_H = eta_H(t)
+
 
     omega_H = 2 * sigma_H
 
@@ -54,7 +61,8 @@ def diff_eq(H, V1, V2, P, dx, dy, sigma_H, eta_H,
     divergence = uniform_filter(divergence, size=3)
 
 
-    # Reflective padding
+    # Reflective padding 
+    # Neumann boundary conditions 
     H_pad = np.pad(H, pad_width=1, mode='edge')
 
     laplacian_H = (
