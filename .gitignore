@@ -8,3 +8,4 @@ __pycache__/
 outputs/*
 .ssh
 .pkl
+DEBUG/*.pkl
