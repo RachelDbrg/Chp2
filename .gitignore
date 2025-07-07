@@ -7,3 +7,4 @@ frames/*.png
 __pycache__/
 outputs/*
 .ssh
+.pkl
