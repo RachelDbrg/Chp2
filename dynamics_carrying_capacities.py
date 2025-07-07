@@ -24,4 +24,5 @@ def dynamics_carrying_capacity(k_V1, k_V2, gamma_H1H2):
     safe_k_H1 = np.where(k_H1 < 1e-6, 1e-16, k_H1)
     safe_k_H2 = np.where(k_H2 < 1e-6, 1e-16, k_H2)
 
+
     return k_H1, k_H2, safe_k_H1, safe_k_H2
