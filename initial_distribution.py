@@ -1,4 +1,4 @@
-def initial_sp_distribution(Nx, Ny):
+def initial_sp_distribution(Nx, Ny, k_V1_init, k_V2_init):
 
     import numpy as np
 
@@ -24,10 +24,10 @@ def initial_sp_distribution(Nx, Ny):
     # V1_loc_y_min = V2_loc_y_min
     # V1_loc_y_max = V2_loc_y_max
 
-    H2_loc_x_min = V2_loc_x_min
-    H2_loc_x_max = V2_loc_x_max
-    H2_loc_y_min = V2_loc_y_min
-    H2_loc_y_max = V2_loc_y_max
+    # H2_loc_x_min = V2_loc_x_min
+    # H2_loc_x_max = V2_loc_x_max
+    # H2_loc_y_min = V2_loc_y_min
+    # H2_loc_y_max = V2_loc_y_max
 
     # H1_loc_x_min = V2_loc_x_min
     # H1_loc_x_max = V2_loc_x_max
@@ -73,32 +73,35 @@ def initial_sp_distribution(Nx, Ny):
     V1[V1_loc_x_min:V1_loc_x_max, V1_loc_y_min:V1_loc_y_max] = 1*10**5 
 
     # # Localisation of the H2 herbivore
-    # H2_loc_x_min = 2
-    # H2_loc_x_max = 3
-    # H2_loc_y_min = 2
-    # H2_loc_y_max = 3
+    H2_loc_x_min = 2
+    H2_loc_x_max = 3
+    H2_loc_y_min = 2
+    H2_loc_y_max = 3
 
-    # H1_loc_x_min = 8
-    # H1_loc_x_max = 9
-    # H1_loc_y_min = 8
-    # H1_loc_y_max = 9
+    H1_loc_x_min = 8
+    H1_loc_x_max = 9
+    H1_loc_y_min = 8
+    H1_loc_y_max = 9
 
-    H1_loc_x_min = V1_loc_x_min + 4
-    H1_loc_x_max = V1_loc_x_max + 4 
-    H1_loc_y_min = V1_loc_y_min - 4
-    H1_loc_y_max = V1_loc_y_max - 4
+    # H1_loc_x_min = V1_loc_x_min + 4
+    # H1_loc_x_max = V1_loc_x_max + 4 
+    # H1_loc_y_min = V1_loc_y_min - 4
+    # H1_loc_y_max = V1_loc_y_max - 4
 
+    H1[H1_loc_x_min:H1_loc_x_max, H1_loc_y_min:H1_loc_y_max] = 0.1
+
+    # H1[Nx//2, Nx//2] = 0.1
+    # H2[Nx//2, Nx//2] = 0.1
+    H2[H2_loc_x_min:H2_loc_x_max, H2_loc_y_min:H2_loc_y_max] = 0.1
+
+    # P[H2_loc_x_min:H2_loc_x_max, H2_loc_y_min:H2_loc_y_max] = 0.005
+    P[Nx//2, Nx//2] = 0.005
     
-    # H1[H1_loc_x_min:H1_loc_x_max, H1_loc_y_min:H1_loc_y_max] = 0.1
+    # k_V2[V2_loc_x_min:V2_loc_x_max, V2_loc_y_min:V2_loc_y_max] = 167010
+    k_V2[V2_loc_x_min:V2_loc_x_max, V2_loc_y_min:V2_loc_y_max] = k_V2_init
 
-    H1[Nx//2, Nx//2] = 0.1
-
-    H2[H2_loc_x_min:H2_loc_x_max, H2_loc_y_min:H2_loc_y_max] = 0
-
-    P[Nx//2, Nx//2] = 0
-    
-    k_V2[V2_loc_x_min:V2_loc_x_max, V2_loc_y_min:V2_loc_y_max] = 167010
-    k_V1[V1_loc_x_min:V1_loc_x_max, V1_loc_y_min:V1_loc_y_max] = 92870
+    # k_V1[V1_loc_x_min:V1_loc_x_max, V1_loc_y_min:V1_loc_y_max] = 92870
+    k_V1[V1_loc_x_min:V1_loc_x_max, V1_loc_y_min:V1_loc_y_max] = k_V1_init
 
 
     # Test and put every vegetation to 0
