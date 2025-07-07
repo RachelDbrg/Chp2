@@ -4,5 +4,10 @@ def flatten_fields(*fields):
 
 def unflatten_fields(y, Nx, Ny, num_fields):
     import numpy as np
-    split = np.split(y, num_fields)
-    return [s.reshape((Nx, Ny)) for s in split]
+    total_cells = Nx * Ny
+    fields = []
+    for i in range(num_fields):
+        start = i * total_cells
+        end = (i + 1) * total_cells
+        fields.append(y[start:end].reshape((Nx, Ny)))
+    return fields
