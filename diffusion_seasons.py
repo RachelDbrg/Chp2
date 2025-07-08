@@ -2,7 +2,7 @@
 # to chose V1 in winter and more V2 in summer 
 
 # What should change?
-## Sigma: the sensitivity of species to high quality patches 
+## Sigma: the sensitivity of species to high quality patches should be stronger in winter than in summer?
 
 def seasonal_eta_H1(t):
     import numpy as np
