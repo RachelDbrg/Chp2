@@ -19,6 +19,12 @@ def initial_sp_distribution(Nx, Ny, k_V1_init, k_V2_init):
     V2_loc_y_min = 8
     V2_loc_y_max = 9
 
+    # V2_loc_x_min_bis = 8
+    # V2_loc_x_max_bis = 9
+    # V2_loc_y_min_bis = 8
+    # V2_loc_y_max_bis = 9
+
+
     # V1_loc_x_min = V2_loc_x_min
     # V1_loc_x_max = V2_loc_x_max
     # V1_loc_y_min = V2_loc_y_min
@@ -69,6 +75,9 @@ def initial_sp_distribution(Nx, Ny, k_V1_init, k_V2_init):
     
     # V2[Nx // 3:2*Nx // 3, Ny // 3:2*Ny // 3] = 1*10^5  # Center of the grid
     V2[V2_loc_x_min:V2_loc_x_max, V2_loc_y_min:V2_loc_y_max] = 1*10**5  # Center of the grid
+
+    # V2[V2_loc_x_min_bis:V2_loc_x_max_bis, V2_loc_y_min_bis:V2_loc_y_max_bis] = 1*10**5 
+
     # V1[1:Nx, 1:Ny] = 0  # Center of the grid
     V1[V1_loc_x_min:V1_loc_x_max, V1_loc_y_min:V1_loc_y_max] = 1*10**5 
 
@@ -80,25 +89,22 @@ def initial_sp_distribution(Nx, Ny, k_V1_init, k_V2_init):
 
     H1_loc_x_min = 8
     H1_loc_x_max = 9
-    H1_loc_y_min = 8
-    H1_loc_y_max = 9
-
-    # H1_loc_x_min = V1_loc_x_min + 4
-    # H1_loc_x_max = V1_loc_x_max + 4 
-    # H1_loc_y_min = V1_loc_y_min - 4
-    # H1_loc_y_max = V1_loc_y_max - 4
+    H1_loc_y_min = 4
+    H1_loc_y_max = 5
 
     H1[H1_loc_x_min:H1_loc_x_max, H1_loc_y_min:H1_loc_y_max] = 0.1
 
     # H1[Nx//2, Nx//2] = 0.1
     # H2[Nx//2, Nx//2] = 0.1
-    H2[H2_loc_x_min:H2_loc_x_max, H2_loc_y_min:H2_loc_y_max] = 0.1
+    H2[H2_loc_x_min:H2_loc_x_max, H2_loc_y_min:H2_loc_y_max] = 0
 
     # P[H2_loc_x_min:H2_loc_x_max, H2_loc_y_min:H2_loc_y_max] = 0.005
-    P[Nx//2, Nx//2] = 0.005
+    P[Nx//2, Nx//2] = 0
     
     # k_V2[V2_loc_x_min:V2_loc_x_max, V2_loc_y_min:V2_loc_y_max] = 167010
     k_V2[V2_loc_x_min:V2_loc_x_max, V2_loc_y_min:V2_loc_y_max] = k_V2_init
+
+    # k_V2[V2_loc_x_min_bis:V2_loc_x_max_bis, V2_loc_y_min_bis:V2_loc_y_max_bis] = k_V2_init//2
 
     # k_V1[V1_loc_x_min:V1_loc_x_max, V1_loc_y_min:V1_loc_y_max] = 92870
     k_V1[V1_loc_x_min:V1_loc_x_max, V1_loc_y_min:V1_loc_y_max] = k_V1_init
