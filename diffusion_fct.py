@@ -9,6 +9,7 @@ def diff_eq(H, V1, V2, P, dx, dy, sigma_H, eta_H,
     # Evaluate time-dependent parameters if needed
     if callable(sigma_H):
         sigma_H = sigma_H(t)
+        
     if callable(eta_H):
         eta_H = eta_H(t)
 
