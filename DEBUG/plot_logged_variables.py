@@ -6,10 +6,10 @@ import pickle
 # === CONFIGURATION ===
 # Load your logged_data dictionary from a saved file
 # Replace this with your actual path if needed
-LOG_FILE = "logged_data.pkl"
+LOG_FILE = "DEBUG/logged_data.pkl"
 
 # Choose which variable to visualize
-VARIABLE = "safe_k_V2"  # e.g., "Dm_eff_P", "score_G_H1", etc.
+VARIABLE = "eta_H1"  # e.g., "Dm_eff_P", "score_G_H1", etc.
 
 # Plot settings
 PLOT_TYPE = "max"  # Options: "mean", "max", "center", "heatmap"
@@ -27,6 +27,8 @@ if VARIABLE not in logged_data:
 
 # === EXTRACT TIME SERIES ===
 entries = logged_data[VARIABLE]
+
+print(f"{VARIABLE} has {len(entries)} entries")
 
 # Handle (time, field) tuples
 times = [entry[0] for entry in entries]
