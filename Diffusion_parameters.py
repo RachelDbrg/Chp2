@@ -11,9 +11,9 @@ def initialize_diffusion_parms():
    # Defines how much the diffusion term will increase based on the G score, defines the rate of the movement
    # based on the quality of the patch
 
-   eta_H2 = 0.05
+   # eta_H2 = 0.05
    # eta_H1 = 0.05
-   eta_P = 65
+   # eta_P = 65
 
    # Intra-specific diffusion term: should be <0
    alpha_H2H2 = 0 
@@ -31,4 +31,5 @@ def initialize_diffusion_parms():
    alpha_PH1 = 1
 
    # return sigma_H1, sigma_H2, sigma_P, eta_H1, eta_H2, eta_P, alpha_H2H2, alpha_H1H1, alpha_PP, alpha_H2V1, alpha_H2V2, alpha_H1V2, alpha_H1V1, alpha_PH2, alpha_PH1
-   return sigma_H2, sigma_P, eta_H2, eta_P, alpha_H2H2, alpha_H1H1, alpha_PP, alpha_H2V1, alpha_H2V2, alpha_H1V2, alpha_H1V1, alpha_PH2, alpha_PH1
+   # return sigma_H2, sigma_P, eta_H2, eta_P, alpha_H2H2, alpha_H1H1, alpha_PP, alpha_H2V1, alpha_H2V2, alpha_H1V2, alpha_H1V1, alpha_PH2, alpha_PH1
+   return sigma_H2, sigma_P, alpha_H2H2, alpha_H1H1, alpha_PP, alpha_H2V1, alpha_H2V2, alpha_H1V2, alpha_H1V1, alpha_PH2, alpha_PH1
