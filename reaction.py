@@ -1,6 +1,9 @@
-def reaction_eq_lichen(v0, V1, V2, k_V1, rho_H1, a_H1, h_V1H1, h_V2H1, H1):
+def reaction_eq_lichen(v0, V1, V2, k_V1, rho_H1, a_H1, h_V1H1, h_V2H1, H1, t=None):
 
     import numpy as np
+    
+    if callable(rho_H1):
+        rho_H1 = rho_H1(t)
 
     safe_k_V1 = np.where(k_V1 < 1e-6, 1e-16, k_V1)
 
@@ -9,9 +12,12 @@ def reaction_eq_lichen(v0, V1, V2, k_V1, rho_H1, a_H1, h_V1H1, h_V2H1, H1):
     return reaction_V1, safe_k_V1
 
 
-def reaction_eq_deciduous(u0, V1, V2, k_V2, H1, H2, rho_H1, a_H1, h_V1H1, h_V2H1,a_H2, h_V1H2, h_V2H2):
+def reaction_eq_deciduous(u0, V1, V2, k_V2, H1, H2, rho_H1, a_H1, h_V1H1, h_V2H1, a_H2, h_V1H2, h_V2H2, t=None):
 
     import numpy as np
+
+    if callable(rho_H1):
+        rho_H1 = rho_H1(t)
 
     safe_k_V2 = np.where(k_V2 < 1e-6, 1e-16, k_V2)
 
@@ -21,10 +27,13 @@ def reaction_eq_deciduous(u0, V1, V2, k_V2, H1, H2, rho_H1, a_H1, h_V1H1, h_V2H1
 
 
 def reaction_eq_prey_mix(V1, V2, P, a_H1, mu_H1, rho_H1, h_V1H1, h_V2H1, e_V1, e_V2, epsi_AJ, k_H1, chi_H1,
-                         h_PH1, a_PH1, H1, H2, h_PH2, a_PH2):
+                         h_PH1, a_PH1, H1, H2, h_PH2, a_PH2, t = None):
 
 
     import numpy as np
+
+    if callable(rho_H1):
+        rho_H1 = rho_H1(t)
 
     denom_H = 1 + (rho_H1 * a_H1 * h_V1H1 * V1) + ((1 - rho_H1) * a_H1 * h_V2H1 * V2)
     r_H = (chi_H1 * epsi_AJ * (((rho_H1 * a_H1 * e_V1 * V1 + (1 - rho_H1) * a_H1 * e_V2 * V2)/denom_H) - mu_H1))
