@@ -25,10 +25,10 @@ def initial_sp_distribution(Nx, Ny, k_V1_init, k_V2_init):
     # V2_loc_y_max_bis = 9
 
 
-    # V1_loc_x_min = V2_loc_x_min
-    # V1_loc_x_max = V2_loc_x_max
-    # V1_loc_y_min = V2_loc_y_min
-    # V1_loc_y_max = V2_loc_y_max
+    V1_loc_x_min = V2_loc_x_min
+    V1_loc_x_max = V2_loc_x_max
+    V1_loc_y_min = V2_loc_y_min
+    V1_loc_y_max = V2_loc_y_max
 
     # H2_loc_x_min = V2_loc_x_min
     # H2_loc_x_max = V2_loc_x_max
@@ -60,10 +60,10 @@ def initial_sp_distribution(Nx, Ny, k_V1_init, k_V2_init):
     # V1_loc_y_max = V2_loc_y_max - 4
 
 
-    V1_loc_x_min = 8
-    V1_loc_x_max = 9
-    V1_loc_y_min = 2
-    V1_loc_y_max = 3
+    # V1_loc_x_min = 8
+    # V1_loc_x_max = 9
+    # V1_loc_y_min = 2
+    # V1_loc_y_max = 3
 
 
     # Create the mask inside your initialize() function:
@@ -87,12 +87,13 @@ def initial_sp_distribution(Nx, Ny, k_V1_init, k_V2_init):
     H2_loc_y_min = 2
     H2_loc_y_max = 3
 
-    H1_loc_x_min = 8
-    H1_loc_x_max = 9
-    H1_loc_y_min = 4
-    H1_loc_y_max = 5
+    H1_loc_x_min = 2
+    H1_loc_x_max = 3
+    H1_loc_y_min = 2
+    H1_loc_y_max = 3
 
-    H1[H1_loc_x_min:H1_loc_x_max, H1_loc_y_min:H1_loc_y_max] = 0.1
+    # H1[H1_loc_x_min:H1_loc_x_max, H1_loc_y_min:H1_loc_y_max] = 0.1
+    H1[V1_loc_x_min:V1_loc_x_max, V1_loc_y_min:V1_loc_y_max] = 0.1
 
     # H1[Nx//2, Nx//2] = 0.1
     # H2[Nx//2, Nx//2] = 0.1
