@@ -33,7 +33,7 @@ def initialize_animal_parms(k_U_val, k_V_norm, k_U_max):
     mu_H1 = 70 * w_H1**0.75 * 365 * 1.7 * 4.184 
 
     ## ------------------ Proportion of V1 in the H1 diet 
-    rho_H1 = 0.6
+    # rho_H1 = 0.6
     
     ## ------------------ Conversion rates
     epsi_AJ = 0.08
@@ -45,8 +45,10 @@ def initialize_animal_parms(k_U_val, k_V_norm, k_U_max):
 
     ## ------------------ Conversion of energy into new individuals
     chi_H2 = target_growth_rate_H2 / (epsi_AJ) * ((a_H2 * k_U_val * e_V2)/(1 + a_H2 * h_V2H2 * k_U_val) - mu_H2)**-1
-    denom_supp_NRJ_H1 = 1 + (rho_H1 * a_H1 * h_V1H1 * k_V_norm) + ((1 - rho_H1) * a_H1 * h_V2H1 * k_U_val)
-    chi_H1 = target_growth_rate_H1 / (epsi_AJ) * ((((rho_H1 * a_H1 * e_V1 * k_V_norm + (1 - rho_H1) * a_H1 * e_V2 * k_U_max)/(denom_supp_NRJ_H1))) - mu_H1)**-1
+    
+    rho_H1_mean = 0.6
+    denom_supp_NRJ_H1 = 1 + (rho_H1_mean * a_H1 * h_V1H1 * k_V_norm) + ((1 - rho_H1_mean) * a_H1 * h_V2H1 * k_U_val)
+    chi_H1 = target_growth_rate_H1 / (epsi_AJ) * ((((rho_H1_mean * a_H1 * e_V1 * k_V_norm + (1 - rho_H1_mean) * a_H1 * e_V2 * k_U_max)/(denom_supp_NRJ_H1))) - mu_H1)**-1
 
     ## ------------------ Intake ratio between prey
     I_H1 = 0.45 * (w_H1 **0.71)
@@ -96,9 +98,11 @@ def initialize_animal_parms(k_U_val, k_V_norm, k_U_max):
     h_PH2 = h_PH1 * epsi_H1H2 
 
  
-    return rho_H1, a_H2, a_H1, h_V2H2, e_V1, e_V2, h_V1H1, h_V2H1, h_V1H2, mu_H2, \
-    mu_H1, epsi_AJ, chi_H2, chi_H1, a_PH2, a_PH1, h_PH1, h_PH2, mu_P, phi_P, h_P, chi_P, epsi_H1H2, gamma_H1H2, I_H1, I_H2
+    # return rho_H1, a_H2, a_H1, h_V2H2, e_V1, e_V2, h_V1H1, h_V2H1, h_V1H2, mu_H2, \
+    # mu_H1, epsi_AJ, chi_H2, chi_H1, a_PH2, a_PH1, h_PH1, h_PH2, mu_P, phi_P, h_P, chi_P, epsi_H1H2, gamma_H1H2, I_H1, I_H2
 
+    return a_H2, a_H1, h_V2H2, e_V1, e_V2, h_V1H1, h_V2H1, h_V1H2, mu_H2, \
+    mu_H1, epsi_AJ, chi_H2, chi_H1, a_PH2, a_PH1, h_PH1, h_PH2, mu_P, phi_P, h_P, chi_P, epsi_H1H2, gamma_H1H2, I_H1, I_H2
 
 
 # %%
