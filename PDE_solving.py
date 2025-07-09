@@ -19,28 +19,62 @@ def system_rhs(t, y, Nx, Ny, dx, dy, params, mask_V2, mask_V1, barrier_mask, log
     # print("k_H1_final shape:", np.shape(k_H1))
     # print("k_H2_final shape:", np.shape(k_H2))
 
+    # Compute rho
+    rho_val = params['rho_H1_fn'](t)
+    eta_H1_val = params['eta_H1_fn'](t)
+    eta_H2_val = params['eta_P_fn'](t)
+    eta_P_val = params['eta_H2_fn'](t)
+
 
     # Compute reactions
-    R_V1, safe_k_V1 = reaction_eq_lichen(params['V1_croiss'], V1, V2, params['k_V1_norm'], 
-                                    params['rho_H1'], params['a_H1'],
-                                    params['h_V1H1'], params['h_V2H1'],
-                                    H1)
+    R_V1, safe_k_V1 = reaction_eq_lichen(v0 = params['V1_croiss'],
+                                         V1 = V1, V2 = V2, 
+                                         k_V1 = params['k_V1_norm'], 
+                                         rho_H1=rho_val,  # function of t
+                                         a_H1 = params['a_H1'],
+                                         h_V1H1 = params['h_V1H1'], 
+                                         h_V2H1 = params['h_V2H1'],
+                                         H1 =H1, 
+                                         t=t)
     
 
+    R_V2, safe_k_V2 = reaction_eq_deciduous(u0 =params['V2_croiss'], 
+                                            V1 = V1, 
+                                            V2 = V2, 
+                                            k_V2 = params['k_V2_val'],
+                                            H1 = H1,
+                                            H2 = H2, 
+                                            rho_H1=params['rho_H1_fn'],  # function of t
+                                            a_H1=params['a_H1'],
+                                            h_V1H1=params['h_V1H1'], 
+                                            h_V2H1 = params['h_V2H1'],
+                                            a_H2 = params['a_H2'], 
+                                            h_V1H2 = params['h_V1H2'],
+                                            h_V2H2 = params['h_V2H2'],
+                                            t=t)
 
-    R_V2, safe_k_V2 = reaction_eq_deciduous(params['V2_croiss'], V1, V2, params['k_V2_val'],
-                                    H1, H2, params['rho_H1'], params['a_H1'],
-                                    params['h_V1H1'], params['h_V2H1'],
-                                    params['a_H2'], params['h_V1H2'],
-                                    params['h_V2H2'])
 
-    R_H1, predation_H1 = reaction_eq_prey_mix(V1, V2, P, params['a_H1'],
-                                    params['mu_H1'], params['rho_H1'],
-                                    params['h_V1H1'], params['h_V2H1'],
-                                    params['e_V1'], params['e_V2'],
-                                    params['epsi_AJ'], safe_k_H1,
-                                    params['chi_H1'], params['h_PH1'], params['a_PH1'],
-                                    H1, H2, params['h_PH2'], params['a_PH2'])
+    R_H1, predation_H1 = reaction_eq_prey_mix(V1 = V1, 
+                                              V2 = V2, 
+                                              P = P, 
+                                              a_H1 = params['a_H1'],
+                                            mu_H1 = params['mu_H1'], 
+                                            rho_H1 = params['rho_H1_fn'],
+                                            h_V1H1 = params['h_V1H1'], 
+                                            h_V2H1 = params['h_V2H1'],
+                                            e_V1 = params['e_V1'], 
+                                            e_V2 = params['e_V2'],
+                                            epsi_AJ = params['epsi_AJ'],
+                                            k_H1 = safe_k_H1,
+                                            chi_H1 = params['chi_H1'], 
+                                            h_PH1 = params['h_PH1'],
+                                            a_PH1 = params['a_PH1'],
+                                            H1 = H1,
+                                            H2 = H2, 
+                                            h_PH2 = params['h_PH2'], 
+                                            a_PH2 = params['a_PH2'],
+                                            t=t)
+
 
     R_H2, r_H, predation_H2 = reaction_eq_prey_mono(params['a_H2'], params['h_V2H2'], V2,
                                     params['chi_H2'], params['epsi_AJ'], params['e_V2'],
@@ -74,12 +108,36 @@ def system_rhs(t, y, Nx, Ny, dx, dy, params, mask_V2, mask_V1, barrier_mask, log
 
     
     ## H2
-    D_H2, score_G_H2, norm_score_G_H2, Dm_eff_H2, diffusion_term_H2 = diff_eq(H2, V1, V2, P, dx, dy, params["sigma_H2"], params["eta_H2"],
-    params["alpha_H2H2"], params["alpha_H2V1"], params["alpha_H2V2"], params["alpha_PH2"], barrier_mask=None)
+    # D_H2, score_G_H2, norm_score_G_H2, Dm_eff_H2, diffusion_term_H2 = diff_eq(H2, V1, V2, P, dx, dy, params["sigma_H2"], params["eta_H2"],
+    # params["alpha_H2H2"], params["alpha_H2V1"], params["alpha_H2V2"], params["alpha_PH2"], barrier_mask=None)
+
+    D_H2, score_G_H2, norm_score_G_H2, Dm_eff_H2, diffusion_term_H2 = diff_eq(
+    H2, V1, V2, P, dx, dy,
+    sigma_H=params["sigma_H2"], 
+    eta_H=params['eta_H2_fn'],      # function of t
+    alpha_HH=params['alpha_H2H2'],
+    alpha_HV1=params['alpha_H2V1'],
+    alpha_HV2=params['alpha_H2V2'],
+    alpha_PH=params['alpha_PH2'],
+    barrier_mask=None,
+    t=t
+)
 
     ## P
-    D_P, score_G_P, norm_score_G_P, Dm_eff_P, diffusion_term_P = diff_eq(P, H1, H2, 0, dx, dy, params["sigma_P"], params["eta_P"],
-    params["alpha_PP"], params["alpha_PH1"], params["alpha_PH2"], 0, barrier_mask=None)
+    # D_P, score_G_P, norm_score_G_P, Dm_eff_P, diffusion_term_P = diff_eq(P, H1, H2, 0, dx, dy, params["sigma_P"], params["eta_P"],
+    # params["alpha_PP"], params["alpha_PH1"], params["alpha_PH2"], 0, barrier_mask=None)
+
+    D_P, score_G_P, norm_score_G_P, Dm_eff_P, diffusion_term_P = diff_eq(
+    P, H1, H2, 0, dx, dy,
+    sigma_H=params["sigma_P"],  
+    eta_H=params['eta_P_fn'],      # function of t
+    alpha_HH=params['alpha_PP'],
+    alpha_HV1=params['alpha_PH1'],
+    alpha_HV2=params['alpha_PH2'],
+    alpha_PH=0,
+    barrier_mask=None,
+    t=t
+)
 
 
     if mask_V2 is not None:
@@ -109,8 +167,13 @@ def system_rhs(t, y, Nx, Ny, dx, dy, params, mask_V2, mask_V1, barrier_mask, log
             predation_H2 = predation_H2,
             predation_H1 = predation_H1,
             safe_k_V1 = safe_k_V1,
-            safe_k_V2 = safe_k_V2
+            safe_k_V2 = safe_k_V2,
+            rho_H1 = rho_val,
+            eta_H1 = eta_H1_val,
+            eta_H2 = eta_H2_val,
+            eta_P = eta_P_val
     )
+
 
 
 
