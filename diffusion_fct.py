@@ -59,7 +59,7 @@ def diff_eq(H, V1, V2, P, dx, dy, sigma_H, eta_H,
     div_flux_y = (flux_y_padded[1:-1, 2:] - flux_y_padded[1:-1, 1:-1]) / dy
 
     divergence = div_flux_x + div_flux_y
-    divergence = uniform_filter(divergence, size=3)
+    # divergence = uniform_filter(divergence, size=3)
 
 
     # Reflective padding 
@@ -82,4 +82,5 @@ def diff_eq(H, V1, V2, P, dx, dy, sigma_H, eta_H,
 
     diffusion_term = Dm_eff * laplacian_H
 
-    return divergence, score_G, normalized_score_G, Dm_eff, diffusion_term
+    # return divergence, score_G, normalized_score_G, Dm_eff, diffusion_term
+    return divergence, score_G, normalized_score_G, Dm_eff, diffusion_term, flux_x, flux_y
