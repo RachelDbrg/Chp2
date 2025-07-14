@@ -11,3 +11,5 @@ outputs/*
 DEBUG/*.pkl
 logs/*
 methods/*
+*.npz
+
