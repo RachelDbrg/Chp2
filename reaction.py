@@ -72,7 +72,7 @@ def reaction_eq_predator(P, H1, H2, a_PH1, a_PH2, h_PH1, h_PH2, phi_P, h_P, chi_
     import numpy as np
     denom_predator = 1 + h_PH1 * a_PH1 * H1 + h_PH2 * a_PH2 * H2
 
-    intake_predator = (chi_P * ((a_PH1 * H1 + epsi_H1H2 * a_PH2 * H2) / (denom_predator)) - mu_P)
+    intake_predator = (chi_P * ((a_PH2 * H2 + epsi_H1H2 * a_PH1 * H1) / (denom_predator)) - mu_P)
 
     safe_r_P = np.where(intake_predator < 1e-6, 1e-16, intake_predator)
 
