@@ -87,10 +87,10 @@ def seasonal_eta_H1(t):
     return A + B * np.sin(2 * np.pi * t - phi)
 
 
-times = [0, 1/3, 2/3]
-labels = ["Calving", "Sumfall", "Winter"]
-for t, label in zip(times, labels):
-    print(f"{label} (t={t:.2f}): η_H1 = {seasonal_eta_H1(t):.2f}")
+# times = [0, 1/3, 2/3]
+# labels = ["Calving", "Sumfall", "Winter"]
+# for t, label in zip(times, labels):
+#     print(f"{label} (t={t:.2f}): η_H1 = {seasonal_eta_H1(t):.2f}")
 
 
 
@@ -113,9 +113,9 @@ def seasonal_eta_H2(t):
     return A + B * np.sin(2 * np.pi * t - phi)
 
 
-times = [0, 1/3, 2/3]
-labels = ["Calving", "Sumfall", "Winter"]
-for t, label in zip(times, labels):
-    print(f"{label} (t={t:.2f}): η_H1 = {seasonal_eta_H2(t):.2f}")
+# times = [0, 1/3, 2/3]
+# labels = ["Calving", "Sumfall", "Winter"]
+# for t, label in zip(times, labels):
+#     print(f"{label} (t={t:.2f}): η_H1 = {seasonal_eta_H2(t):.2f}")
 
 
