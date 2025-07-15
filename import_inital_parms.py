@@ -1,5 +1,4 @@
 def initialize_simulation():
-    import matplotlib.pyplot as plt
     import numpy as np
     from spatial_parms import initialize_spatial_parms
     from parameters_animals import initialize_animal_parms
