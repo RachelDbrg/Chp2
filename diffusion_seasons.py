@@ -21,8 +21,8 @@ def seasonal_eta_H1(t):
     # sin(x) peaks at π/2, so we solve: 2π(1/3) - φ = π/2 ⇒ φ = 2π/3 - π/2
     phi = 2 * np.pi / 3 - np.pi / 2
 
-    # return A + B * np.sin(2 * np.pi * t - phi)
-    return 10
+    return A + B * np.sin(2 * np.pi * t - phi)
+    # return 10
 
 
 def seasonal_eta_H2(t):
@@ -41,8 +41,8 @@ def seasonal_eta_H2(t):
     # sin(x) peaks at π/2, so we solve: 2π(1/3) - φ = π/2 ⇒ φ = 2π/3 - π/2
     phi = 2 * np.pi / 3 - np.pi / 2
 
-    # return A + B * np.sin(2 * np.pi * t - phi)
-    return 10
+    return A + B * np.sin(2 * np.pi * t - phi)
+    # return 10
 
 
 def seasonal_eta_P(t):
@@ -61,8 +61,8 @@ def seasonal_eta_P(t):
     # sin(x) peaks at π/2, so we solve: 2π(1/3) - φ = π/2 ⇒ φ = 2π/3 - π/2
     phi = 2 * np.pi / 3 - np.pi / 2
 
-    # return A + B * np.sin(2 * np.pi * t - phi)
-    return 10
+    return A + B * np.sin(2 * np.pi * t - phi)
+    # return 10
 
 
 
