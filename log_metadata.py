@@ -30,7 +30,7 @@ def prepare_and_save_metadata(V1, V2, H1, H2, P,
                                alpha_H2H2, alpha_H1H1,
                                sigma_H2, sigma_P,
                                alpha_PH2, alpha_PH1,
-                               Nx, Ny, dx, dy, Nt, dt,
+                               Nx, Ny, dx, dy, Lx, Ly, Nt, dt,
                                simulation_description,
                                save_metadata_fn, timestamp
                                ):
@@ -61,8 +61,10 @@ def prepare_and_save_metadata(V1, V2, H1, H2, P,
         "alpha_PH1": alpha_PH1
     }
 
-    grid = {"Nx": Nx, "Ny": Ny, "dx": dx, "dy": dy}
-    sim_settings = {"Nt": Nt, "t_span": list(t_span), "solver": "LSODA"}
+    grid = {"Nx - nbe of cells x axis": Nx, "Ny - nbe of cells y axis": Ny, 
+            "Lx - Physical length of the domain (km) ":Lx, "Ly - Physical length of the domain (km)":Ly, 
+            "dx - resolution of x axis (km/cell)": dx, "dy - resolution of y axis (km/cell)": dy}
+    sim_settings = {"Nt - ": Nt, "t_span": list(t_span), "solver": "LSODA"}
     notes = simulation_description
 
     # Save and return path
