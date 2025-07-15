@@ -23,7 +23,7 @@ def initialize_diffusion_parms():
    # Inter-specific diffusion term: should be >0 if less diffusion expected in high resource areas
    alpha_H2V1 = 0
    alpha_H2V2 = 1
-   alpha_H1V2 = 1
+   alpha_H1V2 = 0
    alpha_H1V1 = 1
 
    # Diffusion of the predator that should decrease with the density of the prey 
