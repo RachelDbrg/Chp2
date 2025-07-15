@@ -25,6 +25,8 @@ barrier_mask = create_barrier_mask((Nx, Ny), orientation='vertical', thickness=0
 
 print("End importation")
 
+
+
 # ============================== 1. Save metadata ==============================
 
 print("Start metadata")
@@ -44,7 +46,7 @@ metadata_path = prepare_and_save_metadata(
     alpha_H2H2, alpha_H1H1,
     sigma_H2, sigma_P,
     alpha_PH2, alpha_PH1,
-    Nx, Ny, dx, dy, Nt, dt,
+    Nx, Ny, dx, dy, Lx, Ly, Nt, dt,
     simulation_description,
     save_metadata,
     timestamp
@@ -64,7 +66,41 @@ barrier_mask = create_barrier_mask((Nx, Ny), orientation='vertical', thickness=0
 
 print("End barrier")
 
-# ============================== 3. Run PDE ==============================
+# ============================== 3. Save initial position plots ==============================
+
+print("Start initial position")
+
+from plot_distribution import plot_initial_species_distribution
+from plot_distribution import plot_species_distribution
+
+plot_initial_species_distribution(
+    V1, V2, H1, H2, P,
+    k_V1, k_V2, barrier_mask,
+    Lx, Ly, timestamp,
+    plot_species_distribution_fn=plot_species_distribution
+)
+print("End initial position")
+
+# ============================== 4. Save initial position plots ==============================
+
+print("Start patches plots")
+
+from compute_score_maps import compute_norm_score_patch
+from compute_score_maps import generate_score_map_plots
+
+generate_score_map_plots(
+    V1, V2, H1, H2, P,
+    alpha_H2H2, alpha_H2V1, alpha_H2V2, alpha_PH2,
+    alpha_H1H1, alpha_H1V1, alpha_H1V2,
+    alpha_PP, alpha_PH1, timestamp,
+    compute_score_patch_fn=compute_norm_score_patch
+)
+
+print("End patches plots")
+
+
+# ============================== 5. Run PDE ==============================
+
 from scipy.integrate import solve_ivp
 from PDE_solving import system_rhs
 import numpy as np
@@ -172,7 +208,7 @@ sol = solve_ivp(
     t_span=t_span,
     y0=y0,
     method='LSODA',
-    t_eval=np.linspace(*t_span, 100)  # Fewer eval points
+    t_eval=t_eval 
 )
 
 
@@ -191,8 +227,7 @@ os.makedirs(base_output_dir, exist_ok=True)
 output_file = os.path.join(base_output_dir, "sol_output.npz")
 np.savez_compressed(output_file, t=sol.t, y=sol.y)
 
+print("Finished running simulation", timestamp)
 print("Saved solution to:", output_file)
-print("Simulation time:", time.time() - start)
-
-
+print("Simulation time (s):", time.time() - start)
 
