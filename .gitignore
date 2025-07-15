@@ -12,4 +12,4 @@ DEBUG/*.pkl
 logs/*
 methods/*
 *.npz
-
+*.sh
