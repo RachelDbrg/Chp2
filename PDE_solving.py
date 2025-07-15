@@ -12,6 +12,7 @@ def system_rhs(t, y, Nx, Ny, dx, dy, params, mask_V2, mask_V1, barrier_mask, log
     from dynamics_carrying_capacities import dynamics_carrying_capacity
 
 
+    # V1, V2, H1, H2, P, barrier_mask, k_V1, k_V2 = unflatten_fields(y, Nx, Ny, 8)
     V1, V2, H1, H2, P = unflatten_fields(y, Nx, Ny, 5)
 
     k_H1, k_H2, safe_k_H1, safe_k_H2 = dynamics_carrying_capacity(V1, V2, params['gamma_H1H2'])
