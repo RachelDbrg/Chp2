@@ -25,6 +25,15 @@ barrier_mask = create_barrier_mask((Nx, Ny), orientation='vertical', thickness=0
 
 print("End importation")
 
+print("Current simulation running:")
+print("Grid size:", "Nx:", Nx, "Ny:", Ny)
+
+import numpy as np
+
+if np.any(barrier_mask):
+    print("Barrier is present in the mask.")
+else:
+    print("No barrier present in the mask (thickness is effectively 0).")
 
 
 # ============================== 1. Save metadata ==============================
