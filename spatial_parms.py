@@ -4,7 +4,7 @@ def initialize_spatial_parms():
    
     
  # Grid and time setup
-    Nx, Ny = 30, 30    # Number of grid cells in the x- and y-direction
+    Nx, Ny = 50, 50    # Number of grid cells in the x- and y-direction
     Lx, Ly = 10000, 10000   # Physical length of the domain in the x- and y-direction (e.g., meters, kilometers)
     dx, dy = Lx/Nx, Ly/Ny # Spatial resolution (grid cell size)
     dt = 0.01      # time step size (in years)
