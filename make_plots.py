@@ -51,7 +51,7 @@ def load_solution(output_dir, timestamp, Nx, Ny):
 # Example usage
 if __name__ == "__main__":
     # Nx, Ny = 100, 100  # Replace with actual values
-    timestamp = "2025-07-15_15-40"   # Use the actual timestamp used during save
+    timestamp = user_date   # Use the actual timestamp used during save
     output_dir = "outputs"
 
     # t, V1, V2, H1, H2, P, barrier_mask, k_V1, k_V2 = load_solution(output_dir, timestamp, Nx, Ny)
