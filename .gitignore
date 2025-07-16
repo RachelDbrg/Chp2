@@ -13,3 +13,4 @@ logs/*
 methods/*
 *.npz
 *.sh
+*.out
