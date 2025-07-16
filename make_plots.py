@@ -3,6 +3,14 @@ import os
 from import_inital_parms import initialize_simulation
 from spatial_parms import initialize_spatial_parms
 
+import sys
+
+# Get the user_date from command-line arguments
+if len(sys.argv) < 2:
+    raise ValueError("Missing required argument: user_date")
+user_date = sys.argv[1]
+
+print(user_date)
 
 model_data = initialize_simulation()
 sigma_H2, sigma_P, alpha_H2H2, alpha_H1H1, alpha_PP, alpha_H2V1, alpha_H2V2, alpha_H1V2, alpha_H1V1, alpha_PH2, alpha_PH1 = model_data["diffusion_params"]
